@@ -1,42 +1,38 @@
 package smart_home.facade;
 
-import smart_home.devices.Light;
-import smart_home.devices.MusicSystem;
-import smart_home.devices.SecurityCamera;
-import smart_home.devices.Thermostat;
+import smart_home.devices.*;
 
 public class HomeAutomationFacade {
-    private Light light;
-    private MusicSystem music;
-    private Thermostat thermostat;
-    private SecurityCamera camera;
+    private final Device light;
+    private final Device musicSystem;
+    private final Device thermostat;
+    private final Device camera;
 
-    public HomeAutomationFacade(Light light, MusicSystem music, Thermostat thermostat, SecurityCamera camera) {
+    public HomeAutomationFacade(Device light, Device musicSystem, Device thermostat, Device camera) {
         this.light = light;
-        this.music = music;
+        this.musicSystem = musicSystem;
         this.thermostat = thermostat;
         this.camera = camera;
     }
 
-    public void startPartyMode() {
-        System.out.println("\n--- Party Mode ---");
-        light.operate();
-        light.dim(70);
-        music.operate();
-        music.playLoud();
+    public void activateNightMode() {
+        System.out.println("\n--- Activating Night Mode ---");
+        if (light instanceof Light) ((Light) light).turnOff();
+        if (thermostat instanceof Thermostat) ((Thermostat) thermostat).ecoMode();
+        if (camera instanceof SecurityCamera) ((SecurityCamera) camera).enableRecording();
     }
 
-    public void activateNightMode() {
-        System.out.println("\n--- Night Mode ---");
-        light.dim(20);
-        thermostat.ecoMode();
-        camera.enableSecurity();
+    public void startPartyMode() {
+        System.out.println("\n--- Starting Party Mode ---");
+        light.operate();
+        musicSystem.operate();
     }
 
     public void leaveHome() {
         System.out.println("\n--- Leaving Home ---");
-        light.operate();
-        music.operate();
-        camera.enableSecurity();
+        if (light instanceof Light) ((Light) light).turnOff();
+        if (musicSystem instanceof MusicSystem) ((MusicSystem) musicSystem).stopMusic();
+        if (camera instanceof SecurityCamera) ((SecurityCamera) camera).enableRecording();
+        System.out.println("All systems are set for away mode.");
     }
 }

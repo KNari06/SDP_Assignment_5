@@ -3,14 +3,14 @@ package smart_home.decorators;
 import smart_home.devices.Device;
 
 public abstract class DeviceDecorator implements Device {
-    protected Device device;
+    protected Device wrappedDevice;
 
-    public DeviceDecorator(Device device) {
-        this.device = device;
+    public DeviceDecorator(Device wrappedDevice) {
+        this.wrappedDevice = wrappedDevice;
     }
 
     @Override
     public void operate() {
-        device.operate();
+        wrappedDevice.operate();
     }
 }

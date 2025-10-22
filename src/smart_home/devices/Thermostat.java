@@ -1,15 +1,12 @@
 package smart_home.devices;
 
 public class Thermostat implements Device {
-    private int temperature = 22;
-
     @Override
     public void operate() {
-        System.out.println("Thermostat set to " + temperature + "°C");
+        System.out.println("Thermostat is set to comfortable temperature.");
     }
 
     public void ecoMode() {
-        temperature = 18;
-        System.out.println("Thermostat set to eco mode");
+        System.out.println("Thermostat is now in eco mode.");
     }
 }
