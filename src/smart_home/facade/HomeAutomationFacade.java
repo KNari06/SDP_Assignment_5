@@ -1,52 +1,42 @@
 package smart_home.facade;
 
-import smart_home.devices.Device;
 import smart_home.devices.Light;
 import smart_home.devices.MusicSystem;
 import smart_home.devices.SecurityCamera;
 import smart_home.devices.Thermostat;
 
 public class HomeAutomationFacade {
-    private final Device[] lights;
-    private final Device thermostat;
-    private final Device[] cameras;
-    private final Device musicSystem;
+    private Light light;
+    private MusicSystem music;
+    private Thermostat thermostat;
+    private SecurityCamera camera;
 
-    public HomeAutomationFacade(Device[] lights, Device thermostat, Device[] cameras, Device musicSystem) {
-        this.lights = lights;
+    public HomeAutomationFacade(Light light, MusicSystem music, Thermostat thermostat, SecurityCamera camera) {
+        this.light = light;
+        this.music = music;
         this.thermostat = thermostat;
-        this.cameras = cameras;
-        this.musicSystem = musicSystem;
+        this.camera = camera;
     }
 
     public void startPartyMode() {
-        System.out.println("\n[HomeAutomation] Starting Party Mode...");
-        for (Device light : lights) {
-            light.operate();
-            if (light instanceof Light l) l.dim(70);
-        }
-        if (musicSystem instanceof MusicSystem m) m.playHighVolume();
-        System.out.println("[Mode] Party Mode activated.\n");
+        System.out.println("\n--- Party Mode ---");
+        light.operate();
+        light.dim(70);
+        music.operate();
+        music.playLoud();
     }
 
     public void activateNightMode() {
-        System.out.println("\n[HomeAutomation] Activating Night Mode...");
-        for (Device light : lights) light.operate();
-        if (thermostat instanceof Thermostat t) t.setEcoMode();
-        for (Device cam : cameras) {
-            if (cam instanceof SecurityCamera c) c.enableSurveillance();
-        }
-        System.out.println("[Mode] Night Mode activated.\n");
+        System.out.println("\n--- Night Mode ---");
+        light.dim(20);
+        thermostat.ecoMode();
+        camera.enableSecurity();
     }
 
     public void leaveHome() {
-        System.out.println("\n[HomeAutomation] Leaving Home...");
-        for (Device light : lights) light.operate();
-        musicSystem.operate();
-        if (thermostat instanceof Thermostat t) t.setEcoMode();
-        for (Device cam : cameras) {
-            if (cam instanceof SecurityCamera c) c.enableSurveillance();
-        }
-        System.out.println("[Mode] Home left securely.\n");
+        System.out.println("\n--- Leaving Home ---");
+        light.operate();
+        music.operate();
+        camera.enableSecurity();
     }
 }

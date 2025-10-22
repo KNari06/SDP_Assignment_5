@@ -1,20 +1,20 @@
 package smart_home.devices;
 
 public class MusicSystem implements Device {
-    private boolean isPlaying = false;
+    private boolean playing = false;
 
     @Override
     public void operate() {
-        if (isPlaying) {
-            System.out.println("Music system stopped playing.");
-            isPlaying = false;
+        if (playing) {
+            System.out.println("Music stopped");
+            playing = false;
         } else {
-            System.out.println("Music system is playing music.");
-            isPlaying = true;
+            System.out.println("Music playing");
+            playing = true;
         }
     }
 
-    public void playHighVolume() {
-        System.out.println("Playing music at high volume.");
+    public void playLoud() {
+        System.out.println("Music volume set to high");
     }
 }

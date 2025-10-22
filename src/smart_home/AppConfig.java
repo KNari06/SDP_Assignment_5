@@ -1,34 +1,24 @@
-package smart_home;
+package smart_home.config;
 
 import smart_home.devices.*;
 import smart_home.decorators.*;
 
-public final class AppConfig {
-    private AppConfig() {}
-
-    public static Device createLight() {
-        Device base = new Light();
-        base = new EnergySavingDecorator(base);
-        base = new VoiceControlDecorator(base);
-        return base;
+public class AppConfig {
+    public Light getLight() {
+        return new Light();
     }
 
-    public static Device createMusic() {
-        Device base = new MusicSystem();
-        base = new RemoteAccessDecorator(base);
-        base = new EnergySavingDecorator(base);
-        return base;
+    public MusicSystem getMusicSystem() {
+        Device system = new MusicSystem();
+        system = new RemoteAccessDecorator(new EnergySavingDecorator(system));
+        return (MusicSystem) ((DeviceDecorator) system).device;
     }
 
-    public static Device createThermostat() {
-        Device base = new Thermostat();
-        base = new RemoteAccessDecorator(base);
-        return base;
+    public Thermostat getThermostat() {
+        return new Thermostat();
     }
 
-    public static Device createCamera() {
-        Device base = new SecurityCamera();
-        base = new RemoteAccessDecorator(base);
-        return base;
+    public SecurityCamera getCamera() {
+        return new SecurityCamera();
     }
 }

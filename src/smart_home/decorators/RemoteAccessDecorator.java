@@ -3,18 +3,13 @@ package smart_home.decorators;
 import smart_home.devices.Device;
 
 public class RemoteAccessDecorator extends DeviceDecorator {
-
     public RemoteAccessDecorator(Device device) {
         super(device);
     }
 
     @Override
     public void operate() {
+        System.out.println("Remote access enabled");
         super.operate();
-        System.out.println("Remote access enabled for this device.");
-    }
-
-    public void remoteInvoke(String action) {
-        System.out.println("Remote command executed: " + action);
     }
 }

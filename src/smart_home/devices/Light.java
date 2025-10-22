@@ -1,20 +1,22 @@
 package smart_home.devices;
 
 public class Light implements Device {
-    private boolean isOn = false;
+    private boolean on = false;
+    private int brightness = 100;
 
     @Override
     public void operate() {
-        if (isOn) {
-            System.out.println("Light is turning off.");
-            isOn = false;
+        if (on) {
+            System.out.println("Light off");
+            on = false;
         } else {
-            System.out.println("Light is turning on.");
-            isOn = true;
+            System.out.println("Light on");
+            on = true;
         }
     }
 
-    public void dim(int level) {
-        System.out.println("Light dimmed to " + level + "% brightness.");
+    public void dim(int value) {
+        brightness = Math.max(0, Math.min(100, value));
+        System.out.println("Light dimmed to " + brightness + "%");
     }
 }

@@ -5,11 +5,11 @@ public class Thermostat implements Device {
 
     @Override
     public void operate() {
-        System.out.println("Thermostat is maintaining " + temperature + "°C.");
+        System.out.println("Thermostat set to " + temperature + "°C");
     }
 
-    public void setEcoMode() {
+    public void ecoMode() {
         temperature = 18;
-        System.out.println("Thermostat set to Eco Mode (18°C).");
+        System.out.println("Thermostat set to eco mode");
     }
 }
