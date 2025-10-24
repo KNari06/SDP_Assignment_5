@@ -1,27 +1,31 @@
-package smart_home.config;
+package smart_home;
 
 import smart_home.devices.*;
 import smart_home.decorators.*;
-import smart_home.facade.HomeAutomationFacade;
 
 public class AppConfig {
-    public Device createLight() {
-        return new VoiceControlDecorator(new EnergySavingDecorator(new Light()));
+
+    public Light getLight() {
+        Device light = new Light();
+        light = new VoiceControlDecorator(new EnergySavingDecorator(light));
+        return (Light) ((DeviceDecorator) ((DeviceDecorator) light).getDevice()).getDevice();
     }
 
-    public Device createMusicSystem() {
-        return new RemoteAccessDecorator(new EnergySavingDecorator(new MusicSystem()));
+    public MusicSystem getMusicSystem() {
+        Device music = new MusicSystem();
+        music = new RemoteAccessDecorator(new EnergySavingDecorator(music));
+        return (MusicSystem) ((DeviceDecorator) ((DeviceDecorator) music).getDevice()).getDevice();
     }
 
-    public Device createThermostat() {
-        return new EnergySavingDecorator(new Thermostat());
+    public Thermostat getThermostat() {
+        Device thermostat = new Thermostat();
+        thermostat = new EnergySavingDecorator(thermostat);
+        return (Thermostat) ((DeviceDecorator) thermostat).getDevice();
     }
 
-    public Device createCamera() {
-        return new RemoteAccessDecorator(new SecurityCamera());
-    }
-
-    public HomeAutomationFacade createFacade() {
-        return new HomeAutomationFacade(createLight(), createMusicSystem(), createThermostat(), createCamera());
+    public SecurityCamera getCamera() {
+        Device camera = new SecurityCamera();
+        camera = new RemoteAccessDecorator(camera);
+        return (SecurityCamera) ((DeviceDecorator) camera).getDevice();
     }
 }

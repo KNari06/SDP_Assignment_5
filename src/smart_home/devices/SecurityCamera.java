@@ -1,12 +1,16 @@
 package smart_home.devices;
 
 public class SecurityCamera implements Device {
+    private boolean active = false;
+
     @Override
     public void operate() {
-        System.out.println("Security camera is monitoring the area.");
-    }
-
-    public void enableRecording() {
-        System.out.println("Security camera recording started.");
+        if (active) {
+            System.out.println("Security camera deactivated.");
+            active = false;
+        } else {
+            System.out.println("Security camera activated and recording.");
+            active = true;
+        }
     }
 }
